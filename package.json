@@ -3,7 +3,7 @@
     "displayName": "Y3开发助手",
     "description": "",
     "publisher": "sumneko",
-    "version": "2.4.1",
+    "version": "2.5.0",
     "repository": {
         "url": "https://github.com/y3-editor/y3-helper"
     },
@@ -449,6 +449,16 @@
                     "default": true,
                     "scope": "resource"
                 },
+                "Y3-Helper.DebugSkipFiles": {
+                    "title": "%调试跳过文件%",
+                    "description": "%调试跳过文件说明%",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "scope": "window"
+                },
                 "Y3-Helper.CloneY3MakerConfig": {
                     "title": "%拉取Y3Maker配置%",
                     "description": "%拉取Y3Maker配置说明%",
@@ -628,6 +638,11 @@
                                 "type": "array",
                                 "description": "源码路径映射",
                                 "default": []
+                            },
+                            "skipFiles": {
+                                "type": "array",
+                                "description": "调试器跳过的文件路径模式（绝对路径开头，仅 * 为通配符）",
+                                "default": []
                             }
                         }
                     }
@@ -637,7 +652,6 @@
     },
     "extensionDependencies": [
         "actboy168.lua-debug",
-        "sumneko.lua",
         "sumneko.vscode-operator"
     ],
     "icon": "image/logo.png",

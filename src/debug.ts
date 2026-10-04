@@ -195,6 +195,7 @@ async function attachForOnePlayer(id?: number) {
         "outputCapture": [],
         "stopOnEntry": false,
         "sourceCoding": "utf8",
+        "skipFiles": vscode.workspace.getConfiguration('Y3-Helper').get('DebugSkipFiles', []),
     });
     return suc;
 }

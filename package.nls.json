@@ -6,6 +6,8 @@
     "Y3编辑器的完整路径。如果为空则会从注册表中获取。": "The full path of the CliCli editor. If empty, it will be retrieved from the registry.",
     "显示状态栏按钮": "Show Status Bar Buttons",
     "在状态栏中显示“启动”和“附加”按钮": "Show 'Start' and 'Attach' buttons in the status bar",
+    "调试跳过文件": "Debug Skip Files",
+    "调试跳过文件说明": "File path patterns the debugger skips (directories supported), e.g. \"c:*y3*\". Only * is a wildcard; patterns must start with an absolute path (drive letter on Windows), matching is case-insensitive on Windows. Matched frames appear as plain text in the call stack and stepping skips them.",
     "拉取Y3Maker配置": "Clone Y3Maker Config",
     "拉取Y3Maker配置说明": "What to do with the .y3maker config folder in the project root.",
     "拉取Y3Maker配置-ask": "Ask me once when initializing a project",

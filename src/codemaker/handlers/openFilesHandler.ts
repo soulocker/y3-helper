@@ -4,6 +4,7 @@
  */
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as fs from 'fs';
 import { getWorkspaceTracker } from './workspaceTracker';
 
 export interface OpenFile {
@@ -40,6 +41,21 @@ function getDocumentLanguage(language: string): string {
     return lang.toLowerCase();
 }
 
+// 按磁盘真实大小写归一化路径：Y3 编辑器跳转传小写路径，直接重放会在 LSP 建幽灵文档条目
+function fixCase(p: string): string {
+    try {
+        if (!p) {
+            return p;
+        }
+        const dir = path.dirname(p);
+        const base = path.basename(p);
+        const real = fs.readdirSync(dir).find((f) => f.toLowerCase() === base.toLowerCase());
+        return real ? path.join(dir, real) : p;
+    } catch {
+        return p;
+    }
+}
+
 export class OpenFilesHandler {
     private extensionContext: vscode.ExtensionContext;
     private workspaceRootPath: string;
@@ -70,7 +86,7 @@ export class OpenFilesHandler {
                 (workspaceOpenFiles[lang] || []).forEach((file) => {
                     if (file.isNoteBook) {
                         vscode.workspace
-                            .openNotebookDocument(vscode.Uri.file(file.document.fileName))
+                            .openNotebookDocument(vscode.Uri.file(fixCase(file.document.fileName)))
                             .then((notebook) => {
                                 if (notebook) {
                                     const newFile = {
@@ -94,7 +110,7 @@ export class OpenFilesHandler {
                             });
                     } else {
                         vscode.workspace
-                            .openTextDocument(vscode.Uri.file(file.document.fileName))
+                            .openTextDocument(vscode.Uri.file(fixCase(file.document.fileName)))
                             .then((doc) => {
                                 if (doc) {
                                     const newFile = {
